@@ -1,0 +1,9 @@
+<p>product-list works!</p>
+<ul>
+  <!-- Built-in Directive -->
+  <!-- *ngFor is a built-in structural directive -->
+  <li *ngFor="let product of products">
+    <!-- *ngIf -->
+    <p *ngIf="product.discontinued == false">{{ product.name }}</p>
+  </li>
+</ul>
