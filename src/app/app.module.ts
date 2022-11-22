@@ -5,6 +5,8 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
     NavbarComponent,
     CategoryListComponent,
     ProductListComponent,
+    HomePageComponent,
+    LoginPageComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [BrowserModule, AppRoutingModule], // Angular modülleri import edeceğimiz yer
   providers: [], // IoC Container'daki Dependency Injection'ları tanımlar

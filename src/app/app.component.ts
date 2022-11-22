@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss'], // Hangi CSS dosyasını/dosyalarını kullanacağını belirtir
 })
 export class AppComponent implements OnInit {
-  title: string = 'Etiya 5 Frontend Angular'; // Propoerty, State
+  // title: string = 'Etiya 5 Frontend Angular'; // Propoerty, State
 
   ngOnInit(): void {}
 }
