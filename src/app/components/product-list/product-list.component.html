@@ -1,9 +1,25 @@
 <p>product-list works!</p>
 <ul>
-  <!-- Built-in Directive -->
-  <!-- *ngFor is a built-in structural directive -->
-  <li *ngFor="let product of products">
-    <!-- *ngIf -->
-    <p *ngIf="product.discontinued == false">{{ product.name }}</p>
-  </li>
+  <!-- unordered list -->
+  <!--# Built-in Directive -->
+
+  <!--# *ngFor is a built-in structural directive -->
+  <!-- <div *ngFor="let product of products"> -->
+
+  <!--# Attribute directive -->
+  <ng-template ngFor let-product [ngForOf]="products">
+    <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
+
+    <!--# *ngIf -->
+    <li *ngIf="product.discontinued == false; else productDiscontinued">
+      <p>{{ product.name }}</p>
+    </li>
+    <!-- list istem -->
+
+    <ng-template #productDiscontinued>
+      <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+    </ng-template>
+  </ng-template>
+
+  <!-- </div> -->
 </ul>
