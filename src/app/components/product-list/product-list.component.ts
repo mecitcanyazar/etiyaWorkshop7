@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent {
+  productCardClass: string = 'card col-3 ms-3 mb-3';
+
   products: any[] = [
     {
       id: 1,
@@ -35,4 +37,8 @@ export class ProductListComponent {
       discontinued: false,
     },
   ];
+
+  isProductCardShow(product: any): boolean {
+    return product.discontinued == false;
+  }
 }

@@ -1,5 +1,6 @@
-<p>product-list works!</p>
-<ul>
+<h1 class="display-6">Product List</h1>
+
+<div class="row">
   <!-- unordered list -->
   <!--# Built-in Directive -->
 
@@ -11,15 +12,31 @@
     <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
 
     <!--# *ngIf -->
-    <li *ngIf="product.discontinued == false; else productDiscontinued">
-      <p>{{ product.name }}</p>
-    </li>
+    <div
+      *ngIf="isProductCardShow(product); else productDiscontinued"
+      [class]="productCardClass"
+    >
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <a href="#" class="btn btn-primary">Add to Cart</a>
+      </div>
+    </div>
     <!-- list istem -->
 
     <ng-template #productDiscontinued>
-      <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+      <div
+        class="{{
+          productCardClass
+        }} d-flex justify-content-center align-items-center"
+      >
+        <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+      </div>
     </ng-template>
   </ng-template>
 
   <!-- </div> -->
-</ul>
+</div>
