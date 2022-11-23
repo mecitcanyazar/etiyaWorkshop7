@@ -19,9 +19,27 @@ export class CategoryListComponent {
     { id: 9, name: 'Snacks' },
     { id: 10, name: 'Sweets' },
   ];
-  selectedCategoryId: number | null = 0;
 
-  onSelectedCategory(category: any | null) {
+  private _categoriesListItems: any[] = [{ label: 'All', value: null }];
+  //# Getter
+  get categoriesListItems(): any[] {
+    return [
+      ...this._categoriesListItems,
+      ...this.categories.map((c) => {
+        return { label: c.name, value: c.id };
+      }),
+    ];
+  }
+  //# Setter
+  set categoriesListItems(value: any[]) {
+    this._categoriesListItems = value;
+  }
+  // console.log(this.categoriesListItems); // Get
+  // this.categoriesListItems = []; // Set
+
+  selectedCategoryId: number | null = null;
+
+  onSelectedCategory(categoryId: number | null): void {
     // if (category === null) this.selectedCategoryId = null;
     // else this.selectedCategoryId = category.id;
 
@@ -31,9 +49,15 @@ export class CategoryListComponent {
     //# ternary operator
     // this.selectedCategoryId = category === null ? null : category.id;
 
-    //# nullish coalescing operator
+    //# optional chaining operator
     //: object?.id dediğimiz zaman, object null değilse ve id'e ulaşabiliyorsa id'sini alır, null ise null döner.
+
+    //# nullish coalescing operator
     //: ?? operatörü ile sol taraf false (null, undefined, 0, "") ise sağ tarafı atar.
-    this.selectedCategoryId = category?.id ?? null;
+    this.selectedCategoryId = categoryId ?? null;
+  }
+
+  isSelectedCategory(categoryId: number | null): boolean {
+    return categoryId === this.selectedCategoryId;
   }
 }
