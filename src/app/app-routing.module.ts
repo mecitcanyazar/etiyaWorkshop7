@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomePageComponent },
+  { path: 'category/:categoryId', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
 ];
 
