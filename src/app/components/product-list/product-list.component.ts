@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   productCardClass: string = 'card col-3 ms-3 mb-3';
 
   products: any[] = [
@@ -37,6 +39,31 @@ export class ProductListComponent {
       discontinued: false,
     },
   ];
+  selectedProductCategoryId: number | null = null;
+  get filteredProducts(): any[] {
+    if (this.selectedProductCategoryId)
+      return this.products.filter(
+        (p) => p.categoryId === this.selectedProductCategoryId
+      );
+
+    return this.products;
+  }
+
+  constructor(private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.getCategoryIdFromRoute();
+  }
+
+  getCategoryIdFromRoute(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['categoryId'])
+        this.selectedProductCategoryId = parseInt(params['categoryId']);
+      else this.selectedProductCategoryId = null;
+      // "10.123" // float/double
+      // "10" // int
+    });
+  }
 
   isProductCardShow(product: any): boolean {
     return product.discontinued == false;
