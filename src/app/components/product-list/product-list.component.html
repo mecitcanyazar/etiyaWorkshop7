@@ -1,7 +1,20 @@
-<h1 class="display-6">Product List</h1>
+<div class="d-flex">
+  <h1 class="display-6">Product List</h1>
+  <div class="ms-3 d-flex align-items-center">
+    <!--# One Way binding (tek yönlü atama) -->
+    <input
+      type="text"
+      class="form-control"
+      id="searchProductNameInput"
+      placeholder="Search..."
+      (keyup)="onSearchProductNameChange($event)"
+    />
+    <!--: $event ilgili event'in özelliklerinin bulunduğu html tarafından geçilen js objesi angular tarafından geçilecektir. -->
+  </div>
+</div>
 
 <div class="row">
-  <!-- unordered list -->
+  <!--* unordered list -->
   <!--# Built-in Directive -->
 
   <!--# *ngFor is a built-in structural directive -->
@@ -25,7 +38,7 @@
         <a href="#" class="btn btn-primary">Add to Cart</a>
       </div>
     </div>
-    <!-- list istem -->
+    <!--* list istem -->
 
     <ng-template #productDiscontinued>
       <div
