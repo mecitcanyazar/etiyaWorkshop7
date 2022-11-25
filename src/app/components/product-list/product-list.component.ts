@@ -1,6 +1,5 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -59,13 +58,17 @@ export class ProductListComponent implements OnInit {
     return filteredProducts;
   }
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  //: ActivatedRoute mevcut route bilgisini almak için kullanılır.
+  //: Router yeni route bilgisi oluşturmak için kullanılır.
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.getCategoryIdFromRoute();
+    this.getSearchProductNameFromRoute();
   }
 
   getCategoryIdFromRoute(): void {
+    //: route params'ları almak adına activatedRoute.params kullanılır.
     this.activatedRoute.params.subscribe((params) => {
       if (params['categoryId'])
         this.selectedProductCategoryId = parseInt(params['categoryId']);
@@ -75,11 +78,36 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  getSearchProductNameFromRoute(): void {
+    //: query params'ları almak adına activatedRoute.queryParams kullanılır.
+    this.activatedRoute.queryParams.subscribe((queryParams) => {
+      // && this.searchProductNameInput == null
+      if (
+        queryParams['searchProductName'] &&
+        queryParams['searchProductName'] !== this.searchProductNameInput
+      )
+        this.searchProductNameInput = queryParams['searchProductName'];
+      //# Defensive Programming
+      if (
+        !queryParams['searchProductName'] &&
+        this.searchProductNameInput !== null
+      )
+        this.searchProductNameInput = null;
+    });
+  }
+
   isProductCardShow(product: any): boolean {
     return product.discontinued == false;
   }
 
   onSearchProductNameChange(event: any): void {
     this.searchProductNameInput = event.target.value;
+
+    const queryParams: any = {};
+    if (this.searchProductNameInput !== '')
+      queryParams['searchProductName'] = this.searchProductNameInput;
+    this.router.navigate([], {
+      queryParams: queryParams,
+    });
   }
 }
