@@ -101,7 +101,7 @@ export class ProductListComponent implements OnInit {
   }
 
   onSearchProductNameChange(event: any): void {
-    this.searchProductNameInput = event.target.value;
+    // this.searchProductNameInput = event.target.value; //: ngModel'imiz kendisi bu işlemi zaten gerçekleştiriyor.
 
     const queryParams: any = {};
     if (this.searchProductNameInput !== '')

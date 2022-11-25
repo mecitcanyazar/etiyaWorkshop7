@@ -2,11 +2,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { CategoryListComponent } from './components/category-list/category-list.component';
+import { FormsModule } from '@angular/forms';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     HomePageComponent,
     LoginPageComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
-  imports: [BrowserModule, AppRoutingModule], // Angular modülleri import edeceğimiz yer
+  imports: [BrowserModule, AppRoutingModule, FormsModule], // Angular modülleri import edeceğimiz yer
   providers: [], // IoC Container'daki Dependency Injection'ları tanımlar
   bootstrap: [AppComponent], // Hangi bileşenin ilk açıldığında çalışacağını belirtir
 })
