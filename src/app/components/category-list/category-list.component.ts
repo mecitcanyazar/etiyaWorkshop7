@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-category-list',
@@ -9,19 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CategoryListComponent implements OnInit {
   title: string = 'Category List';
-  categories: any[] = [
-    // property
-    { id: 1, name: 'Beverages' },
-    { id: 2, name: 'Condiments' },
-    { id: 3, name: 'Confections' },
-    { id: 4, name: 'Dairy Products' },
-    { id: 5, name: 'Grains/Cereals' },
-    { id: 6, name: 'Meat/Poultry' },
-    { id: 7, name: 'Produce' },
-    { id: 8, name: 'Seafood' },
-    { id: 9, name: 'Snacks' },
-    { id: 10, name: 'Sweets', productCount: 100 },
-  ];
+  //: ! Şuan undefined olduğu için kızma, daha sonra seni atacağım şeklinde söz vermiş oluyoruz.
+  //: ? Bu özellik undefined olabilir demek.
+  //: null için ? kullanamıyoruz, | null diye belirtmemiz gerekiyor.
+  categories!: Category[];
 
   //# Encapsulation
   private _categoriesListItems: any[] = [{ label: 'All', value: null }];
@@ -52,7 +45,10 @@ export class CategoryListComponent implements OnInit {
   // private activatedRoute: ActivatedRoute;
   //: IoC (Inversion of Control), referansların tutulduğu bir container'dır.
   //: Dependency Injection, IoC container'ın içerisindeki referansları kullanmamızı sağlayan bir mekanizmadır.
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private categoriesService: CategoriesService
+  ) {
     //: constructor class oluşturulduğu an çalışır.
     // this.activatedRoute = activatedRoute;
   }
@@ -60,6 +56,13 @@ export class CategoryListComponent implements OnInit {
   ngOnInit(): void {
     //: ngOnInit() methodu component'in yerleştirildiği an çalışır.
     this.getSelectedCategoryIdFromRoute();
+    this.getListCategories();
+  }
+
+  getListCategories() {
+    this.categoriesService.getList().subscribe((response) => {
+      this.categories = response;
+    });
   }
 
   getSelectedCategoryIdFromRoute() {
