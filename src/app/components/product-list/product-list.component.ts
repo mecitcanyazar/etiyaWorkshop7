@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
   isLoaded = false
 
   selectedProductCategoryId: number | null = null;
-  searchProductNameInput: any = null;  // any yapınca sorun çözüldü ama mantığını anlamadım.
+  searchProductNameInput: any = null;  
   get filteredProducts(): any[] {
     let filteredProducts = this.products;
     console.log(filteredProducts)
