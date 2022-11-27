@@ -1,5 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from 'src/app/services/products.service';
+import { Products } from 'src/app/models/products';
 
 @Component({
   selector: 'app-product-list',
@@ -9,62 +11,50 @@ import { Component, OnInit } from '@angular/core';
 export class ProductListComponent implements OnInit {
   productCardClass: string = 'card col-3 ms-3 mb-3';
 
-  products: any[] = [
-    {
-      id: 1,
-      name: 'Chai',
-      categoryId: 1,
-      unitPrice: 18,
-      unitsInStock: 39,
-      quantityPerUnit: '10 boxes x 20 bags',
-      discontinued: false,
-    },
-    {
-      id: 2,
-      name: 'Chang',
-      categoryId: 1,
-      unitPrice: 19,
-      unitsInStock: 0,
-      quantityPerUnit: '24 - 12 oz bottles',
-      discontinued: true,
-    },
-    {
-      id: 3,
-      name: 'Aniseed Syrup',
-      categoryId: 2,
-      unitPrice: 10,
-      unitsInStock: 13,
-      quantityPerUnit: '12 - 550 ml bottles',
-      discontinued: false,
-    },
-  ];
+  //: ! Şuan undefined olduğu için kızma, daha sonra seni atacağım şeklinde söz vermiş oluyoruz.
+  //: ? Bu özellik undefined olabilir demek.
+  //: null için ? kullanamıyoruz, | null diye belirtmemiz gerekiyor.
+  products!: Products[];
+  isLoaded = false
+
   selectedProductCategoryId: number | null = null;
-  searchProductNameInput: string | null = null;
+  searchProductNameInput: any = null;  // any yapınca sorun çözüldü ama mantığını anlamadım.
   get filteredProducts(): any[] {
     let filteredProducts = this.products;
+    console.log(filteredProducts)
 
-    if (this.selectedProductCategoryId)
-      filteredProducts = filteredProducts.filter(
-        (p) => p.categoryId === this.selectedProductCategoryId
-      );
+      if (this.selectedProductCategoryId)
+        filteredProducts = filteredProducts.filter(
+          (p) => p.categoryId === this.selectedProductCategoryId)
 
-    if (this.searchProductNameInput)
-      filteredProducts = filteredProducts.filter((p) =>
-        p.name
-          .toLowerCase()
-          .includes(this.searchProductNameInput?.toLowerCase())
-      );
 
-    return filteredProducts;
+      if (this.searchProductNameInput)
+        filteredProducts = filteredProducts.filter((p) =>
+          p.name.toLowerCase().includes(this.searchProductNameInput?.toLowerCase()));
+
+        return filteredProducts;
   }
-
   //: ActivatedRoute mevcut route bilgisini almak için kullanılır.
   //: Router yeni route bilgisi oluşturmak için kullanılır.
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router,private productService:ProductsService ) {}
 
   ngOnInit(): void {
     this.getCategoryIdFromRoute();
     this.getSearchProductNameFromRoute();
+    this.getProductList();
+  }
+  getProductList(){
+    this.productService.getProducts().subscribe((response)=>{
+
+      // ! setTimeout !
+      // setTimeout kullanarak sunucudan productList datalarını 2 sn'de getirmesini istedik. // Async
+      // En başta false olarak tanımlandığım dataLoaded değişkeni veriler yüklendiğinde false olsun.
+      //HTML sayfasında da eğer dataLoaded true ise productList'leri göster şeklinde koşul geçtim.
+      setTimeout(()=>{
+        this.products = response
+        this.isLoaded = true
+      },2000)
+    })
   }
 
   getCategoryIdFromRoute(): void {
@@ -110,4 +100,8 @@ export class ProductListComponent implements OnInit {
       queryParams: queryParams,
     });
   }
+
+
+
 }
+

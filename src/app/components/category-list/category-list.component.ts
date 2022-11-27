@@ -74,20 +74,20 @@ export class CategoryListComponent implements OnInit {
   }
 
   // onSelectedCategory(categoryId: number | null): void {
-  //   // if (category === null) this.selectedCategoryId = null;
-  //   // else this.selectedCategoryId = category.id;
+    // if (category === null) this.selectedCategoryId = null;
+    // else this.selectedCategoryId = category.id;
 
-  //   //# Debugging
-  //   //debugger; // breakpoint. Uygulama çalışma anında bu satıra geldiğinde uygulama durucak ve adım adım takip edebileceğimiz bir panel açılacak.
+    //# Debugging
+    //debugger; // breakpoint. Uygulama çalışma anında bu satıra geldiğinde uygulama durucak ve adım adım takip edebileceğimiz bir panel açılacak.
 
-  //   //# ternary operator
-  //   // this.selectedCategoryId = category === null ? null : category.id;
+    //# ternary operator
+    // this.selectedCategoryId = category === null ? null : category.id;
 
-  //   //# optional chaining operator
-  //   //: object?.id dediğimiz zaman, object null değilse ve id'e ulaşabiliyorsa id'sini alır, null ise null döner.
+    //# optional chaining operator
+    //: object?.id dediğimiz zaman, object null değilse ve id'e ulaşabiliyorsa id'sini alır, null ise null döner.
 
-  //   //# nullish coalescing operator
-  //   //: ?? operatörü ile sol taraf false (null, undefined, 0, "") ise sağ tarafı atar.
+    //# nullish coalescing operator
+    //: ?? operatörü ile sol taraf false (null, undefined, 0, "") ise sağ tarafı atar.
   //   this.selectedCategoryId = categoryId ?? null;
   // }
 

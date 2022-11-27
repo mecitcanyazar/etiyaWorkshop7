@@ -24,3 +24,5 @@ import { ProductListComponent } from './components/product-list/product-list.com
   bootstrap: [AppComponent], // Hangi bileşenin ilk açıldığında çalışacağını belirtir
 })
 export class AppModule {}
+
+
